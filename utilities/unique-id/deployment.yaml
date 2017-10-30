@@ -1,0 +1,26 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: unique-id
+  labels:
+    app: unique-id
+spec:
+  selector:
+    matchLabels:
+      app: unique-id
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: unique-id
+    spec:
+      containers:
+      - name: unique-id
+        image: docker.io/makaroni/unique-id
+        ports:
+        - containerPort: 3000
+        env:
+        - name: MY_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP

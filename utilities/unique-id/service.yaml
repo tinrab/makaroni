@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: unique-id
+spec:
+  type: LoadBalancer
+  selector:
+    app: unique-id
+  ports:
+  - port: 3000
