@@ -52,8 +52,12 @@ func machineID() (uint16, error) {
 		return 0, errors.New("'MY_IP' environment variable not set")
 	}
 	ip := net.ParseIP(ipStr)
-	if len(ip) < 4 {
+	if ip == nil || len(ip) < 16 {
 		return 0, errors.New("invalid IP")
 	}
-	return uint16(ip[2])<<8 + uint16(ip[3]), nil
+	return uint16(ip[8])<<7 +uint16(ip[9])<<6 +
+	  uint16(ip[10])<<5 + uint16(ip[11])<<4+
+    uint16(ip[12])<<3 +uint16(ip[13])<<2 +
+	  uint16(ip[14])<<1 + uint16(ip[15]),
+	nil
 }
